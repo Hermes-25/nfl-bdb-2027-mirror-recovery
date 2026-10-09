@@ -1,0 +1,12 @@
+inputs=load_inputs(DATA_DIR,years=[2023,2024],final_enabled=False)
+prepared=prepare_cohort(inputs,years=[2023,2024])
+frame=prepared['eligible'].rename(columns={'nfl_id':'player_id','draft_year':'cohort','k':'y'}).reset_index(drop=True)
+frame.player_id=frame.player_id.astype(int).astype(str)
+assert len(frame)==38 and int(frame.n.sum())==16165 and int(frame.y.sum())==1444
+assert set(frame.player_id)==set(FOLDS['outer'])
+outer=np.array([FOLDS['outer'][z] for z in frame.player_id])
+primary,fits,summary=nested_cv(frame,outer,default_specs(),outer_records=FOLDS['outer_folds'])
+primary.to_csv(WORK/'out_of_player_predictions.csv',index=False)
+(WORK/'fits.json').write_text(json.dumps(fits,indent=2,default=scalar))
+(WORK/'results.json').write_text(json.dumps({'status':'exploratory_existing2025access','n_players':38,'observations':16165,'pressures':1444,'common_folds_sha256':COMMON_FOLDS_SHA256,'metrics':summary},indent=2,default=scalar))
+print(json.dumps(summary,indent=2,default=scalar))

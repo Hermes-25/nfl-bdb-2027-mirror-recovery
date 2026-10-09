@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="390" viewBox="0 0 1440 390" role="img" aria-labelledby="title desc">
+  <title id="title">Relative Mirror Recovery</title>
+  <desc id="desc">NFL Big Data Bowl 2027. Measurement, validation and uncertainty.</desc>
+  <rect width="1440" height="390" rx="22" fill="#102b38"/>
+  <path d="M1040 45V345M1120 45V345M1200 45V345M1280 45V345M1360 45V345" stroke="#254450" stroke-width="2"/>
+  <path d="M1010 290C1090 275 1085 115 1160 110S1200 305 1280 285S1300 95 1400 80" fill="none" stroke="#6ec1cc" stroke-width="7"/>
+  <circle cx="1160" cy="110" r="10" fill="#dfac72"/><circle cx="1280" cy="285" r="10" fill="#dfac72"/>
+  <rect x="65" y="57" width="303" height="33" rx="16" fill="#214957"/>
+  <text x="85" y="80" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="2" fill="#b7e3e9">NFL BIG DATA BOWL 2027</text>
+  <text x="65" y="165" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">Relative Mirror Recovery</text>
+  <text x="65" y="219" font-family="Arial, sans-serif" font-size="33" fill="#d0e2e8">and Rookie Protection</text>
+  <rect x="65" y="256" width="80" height="4" fill="#dfac72"/>
+  <text x="65" y="301" font-family="Arial, sans-serif" font-size="23" fill="#b4d0da">Measurement, validation and uncertainty</text>
+  <text x="65" y="345" font-family="Arial, sans-serif" font-size="17" fill="#91acb6">Abhishek Das · Reproducible research · Open Track</text>
+</svg>

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite the technical paper when using this research."
+title: "Relative Mirror Recovery and Rookie Protection: Measurement, Validation and Uncertainty"
+type: software
+authors:
+  - family-names: Das
+    given-names: Abhishek
+date-released: 2026-10-09
+version: "1.0.0"
+repository-code: "https://github.com/Hermes-25/nfl-bdb-2027-mirror-recovery"
+url: "https://www.kaggle.com/code/abhishekd2512/relative-mirror-recovery-and-rookie-protection"
+abstract: "Auditable mirror-drill kinematics, an unfavorable frozen rookie pass-protection evaluation, and exploratory analyses of selection stability, functional representation, and count-aware uncertainty."
+keywords:
+  - NFL Big Data Bowl
+  - sports analytics
+  - reproducible research
+  - uncertainty
+  - functional data analysis

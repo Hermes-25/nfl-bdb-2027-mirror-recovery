@@ -1,0 +1,146 @@
+# Relative Mirror Recovery and Rookie Protection: Measurement, Validation and Uncertainty
+
+**Abhishek Das · NFL Big Data Bowl 2027 · Open Track**
+
+## Abstract
+
+We test whether Combine mirror-drill kinematics improve rookie offensive linemen's charted pressure forecasts beyond conventional Combine measurements. A speed-normalized reversal-loss profile represents movement during the turn while retaining incoming speed and excursion as task descriptors. The original frozen 2025 evaluation contains 19 rookies, 7,801 charted observations and 668 pressures. Adding mirror descriptors worsened equal-player Brier loss from 0.083684 to 0.084587; a constant forecast performed best. A subsequent, explicitly exploratory extension evaluates functional curves, nested selection, count-aware models and uncertainty. None establishes a dependable predictive advantage. The practical contribution is an auditable film-review measurement, with task-support checks and explicit limits on forecasting and player ranking.
+
+## 1. Introduction
+
+The mirror drill asks a lineman to reverse laterally before exiting forward. Tracking measures movement, but a player grade additionally requires reliability, comparable tasks and transfer to football outcomes. Incoming speed, excursion and instructions can affect movement loss [1].
+
+We ask whether a pre-draft mirror profile improves rookie charted pressure forecasts beyond conventional Combine measurements. We distinguish the original frozen evaluation from extensions conducted after its outcomes were inspected. Those extensions diagnose failure; they cannot provide another untouched test.
+
+## 2. Data and Outcome
+
+### 2.1 Cohort construction
+
+Official competition files link Combine prospects to their draft-year NFL regular season. Starting with Combine position OL, we retain offensive C/G/T alignments on the possession team, explicit non-null pressure-allowed labels and non-nullified plays. Each rookie must have at least 50 charted observations. Full event/player/attempt identifiers preserve distinct trajectories. Audits check linkage, timestamps, coordinate bounds, truncated windows and missing labels.
+
+**Table 1. Cohort construction and charted endpoint.** Counts reflect the specified eligibility rules, not all pass-blocking opportunities or all drafted linemen.
+
+| Cohort | Combine OL | Eligible rookies | Charted observations | Pressures |
+|---|---:|---:|---:|---:|
+| 2023 development | 37 | 18 | 8,182 | 733 |
+| 2024 development | 46 | 20 | 7,983 | 711 |
+| 2025 original frozen test | 38 | 19 | 7,801 | 668 |
+
+Missing labels are undefined. Some explicit False labels have zero recorded rushers encountered. The endpoint therefore measures **charted protection conditional on recorded opportunity**, rather than unconditional career value or talent.
+
+### 2.2 Selection and measurement scope
+
+Only 57 of 121 prospects support the original endpoint. In development, retained prospects average 317.55 pounds versus 310.51 among excluded prospects, and 0.197 versus 0.215 seconds of normalized movement loss. Standardized differences are +0.536 and −0.453: retained-minus-excluded means divided by the corresponding all-development-prospect standard deviation (population divisor). Availability modeling describes selection, without causal correction.
+
+Trajectories contain positions and timestamps, but no opponent trajectory, body orientation or stimulus timestamp; reaction latency and technique are unidentified. All 83 development linemen have one attempt. Multiple turns are movement events, not repeated tests.
+
+## 3. Methods
+
+### 3.1 Speed-relative reversal loss
+
+We derive velocity from coordinates and timestamps after five-frame quadratic smoothing, bridge near-zero signs, and crop the forward exit beyond one yard from its initial reference. Usable reversals require opposite pre/post directions with median speeds above 0.5 yards/second; attempts require two usable reversals.
+
+Let vᵧ(t) denote lateral velocity and ṽpre and ṽpost the pre/post-window median velocities. Set sᵢₙ = |ṽpre| and u(t) = sign(ṽpost) vᵧ(t). For a reversal at time zero,
+
+$$
+L=\frac{1}{s_{\mathrm{in}}}\int_{0}^{0.5}\max\{s_{\mathrm{in}}-u(t),0\}\,dt.\tag{1}
+$$
+
+With velocity in yards/second and time in seconds, L measures effective speed-relative loss seconds, not stopwatch recovery. The profile contains the 75th percentile of losses, median incoming speed and lateral excursion (90th minus 10th position percentile). Excursion describes task demand.
+
+The exploratory functional representation retains outgoing-signed velocity from −0.4 to +0.6 seconds, normalized by incoming speed. Dense-grid two-component PCA, inspired by functional-data analysis [2], is fitted inside training folds, retaining task descriptors separately; it does not implement sparse-data PACE or identify measurement noise. Training-only imputation and a missingness indicator retain all 38 players when one lacks a complete curve.
+
+![Figure 1](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F36098817%2F19a7add8b4d79fa6dcf70bcc4b6b9422%2Ffigure1_film_card.png?generation=1791509179631163&alt=media)
+
+**Figure 1. Mirror-drill measurement.** Paris Johnson's earliest usable 2023 turn was selected without NFL outcomes. (a) The grey +1-yard boundary marks forward-exit exclusion, distinct from the reversal. (b) The 0–0.5-second shortfall is 0.10369 yards; dividing by 1.47857 yards/second gives 0.07013 effective seconds. One attempt cannot establish test–retest reliability.
+
+### 3.2 Original frozen evaluation
+
+Conventional ridge uses height, weight, forty time and ten-yard split; mirror adds the three descriptors. Unverified pre-draft roster position was removed. Separate 2023 player folds selected penalties 10 and 1 with fold-specific preprocessing; 2024 was repeatedly inspected development data.
+
+Before inspecting 2025 outcomes, we fixed the configuration/code hash, fitted both models on 38 development players and serialized their states. The original endpoint, models and result remain unchanged; later extensions are exploratory.
+
+For N players, rᵢ = kᵢ/nᵢ is the rate of kᵢ pressures in nᵢ charted observations; pᵢ is its forecast. Equal-player Brier loss is
+
+$$
+B=\frac{1}{N}\sum_{i=1}^{N}\{r_i(1-p_i)^2+(1-r_i)p_i^2\}.\tag{2}
+$$
+
+Players receive equal weight. Improvement Δ = Bconventional − Bmirror is positive when mirror wins.
+
+### 3.3 Exploratory validation and uncertainty
+
+Exact cohort-balanced outer five-fold and inner three-fold player assignments are fixed for the new comparisons. Players stay grouped; medians, scaling, PCA, penalties and eligible family selection are learned inside training folds [3]. Scalar/curve penalties are 1/10/100; the count-model benchmark adds 0.1 for its ridge and count fits. Known-cohort validation assesses retrospective stability.
+
+Beta-binomial modeling [4] uses counts/exposure and training-only dispersion; new-player forecasts omit that player's count. A studentized jackknife+-style adaptation [5] omits each training player, repeats preprocessing and tuning, and scales leave-one-out errors by modeled count variability. Lower/upper finite-sample order statistics use alpha 0.05. Its empirical performance is reported without assuming that the original theorem's exchangeability and symmetry conditions hold here.
+
+## 4. Results
+
+### 4.1 The original forecast did not improve
+
+**Table 2. Original frozen 2025 equal-player Brier loss.** Lower is better. The constant uses the development mean.
+
+| Forecast | Brier loss |
+|---|---:|
+| Development-mean constant | **0.083513** |
+| Conventional Combine | 0.083684 |
+| Conventional + mirror | 0.084587 |
+
+Mirror improvement was **−0.000902**. A 5,000-draw fixed-state 95% player-bootstrap interval was [−0.001734, −0.000179]; 250 pooled training/evaluation-player refits gave a 95% interval of [−0.002077, +0.000160]. Refitting exposes training instability. Neither interval includes earlier research choices, detector uncertainty or shared-game dependence.
+
+The mirror forecast averaged 11.37 pressures per 100 observations versus an observed equal-player rate of 9.20; conventional averaged 9.25. Low prevalence makes absolute Brier scores small. Existing frozen-output rate MAE was 3.60 pressures per 100 observations for mirror, versus 2.35 conventional and 2.14 constant.
+
+![Figure 2](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F36098817%2F5923a772e838fadf508eea357d43eef4%2Ffigure3_frozen_result.png?generation=1791509221132541&alt=media)
+
+**Figure 2. Original frozen 2025 evaluation.** (a) The constant has the lowest equal-player Brier loss. (b) Fixed-state and train-plus-test player-refit 95% intervals preserve both uncertainty scopes; positive conventional-minus-mirror differences favor mirror. (c) The mirror mean forecast exceeds the observed rate. Neither bootstrap scope repeats the historical human model search.
+
+### 4.2 Representation and model-selection instability
+
+On the same 38 development players, nested conventional Brier loss was **0.08280965**, scalar mirror **0.08285783**, and functional curve **0.08285280**. The functional gain interval [−0.00016970, +0.00007652] crosses zero; all nine smoothing/crop variants lost to matched conventional baselines on the complete-curve subset.
+
+Across 500 player resamples, duplicate identities stay grouped and preprocessing, penalty and family selection repeat. The conventional-minus-mirror interval is **[−0.00019798, +0.00027095]**. Eighteen of 20 alternate splits favor mirror; the fixed primary split does not. One deletion changes some mirror forecasts by 3.28 percentage points. Favorable split selection would obscure instability.
+
+![Figure 3](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F36098817%2Ffd4d6ef8264432a2c5a06edfe7c77dc6%2Ffigure2_selection_stability.png?generation=1791509198871573&alt=media)
+
+**Figure 3. Eligibility and exploratory stability.** (a) The endpoint retains 57/121 prospects. (b) All seven development selection differences appear. (c) The primary split, 20 alternate splits, 38 deletions and 500 fully retuned resamples remain visible. (d) Original 2025 intervals provide context. Sensitivities are dependent; player resampling omits shared-game dependence.
+
+### 4.3 Count awareness does not establish forecasting value
+
+Full-profile beta-binomial loss, **0.08280901**, essentially ties nested conventional ridge: its fixed-prediction difference interval spans zero and log loss slightly worsens versus constant.
+
+Conditional central 90% count intervals cover **27/38** observed player rates, versus **34/38** for the count-model constant. The jackknife+-style adaptation covers **37/38 for both**, with median full-model width 12.12 pressures per 100 versus 9.95 for the constant. These constructions are not an equal-nominal-level contest. Coverage is empirical and conditional on exposure, without demonstrated future-NFL guarantees.
+
+![Figure 4](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F36098817%2Fb1bd75e5cb20ce5fd9f5e75151bfde32%2Ffigure4_count_uncertainty.png?generation=1791509241576546&alt=media)
+
+**Figure 4. Count-aware exploratory results.** (a) Constant-minus-model Brier comparisons use 5,000 fixed-OOF player resamples; positive values favor the candidate. (b–c) Coverage and widths distinguish central-90% count intervals from jackknife+-style intervals at alpha 0.05. Different constructions are not an equal-nominal-level contest or future-NFL guarantee. All 703 mirror-interval pairs overlap; overlap is an abstention heuristic.
+
+
+## 5. Discussion: A Defensible Scouting Use
+
+### 5.1 Film-review workflow
+
+The tool links turn timestamps, speed, excursion and trajectory to film, then retrieves five nearby task profiles using reference-scaled speed/excursion. A leave-prospect-out convex-hull check flags **11/83** unsupported tasks without NFL outcomes or a calibrated talent threshold. For these, show the clip and abstain from relative-efficiency ordering. Within support, retain match distances and ask whether the shortfall recurs under standardized instructions and incoming speed. Repeated standardized attempts are needed. The tool's usefulness to scouts is untested; no automatic pressure-risk or roster adjustment is justified.
+
+### 5.2 Limitations and reproducibility
+
+The 38 development and 19 historical test players are selected by opportunity. OL test–retest reliability, stimulus response and technique are unidentified. Known outcomes limit later validation. Fixed partitions, cohort drift and shared games leave exchangeability/symmetry unestablished; player resampling omits shared-game dependence. Instructions and stimuli were unrecorded.
+
+The notebook preserves eight original frozen code cells and separates exploratory extensions, with hashes, exact folds, attempted comparisons and executable audits. Future deployment requires a later cohort, prospectively fixed protocol and standardized repetitions.
+
+## 6. Conclusion
+
+Mirror tracking makes reversal movement measurable, but this study does not establish improved rookie pressure forecasts. Its practical contribution is transparent film comparison, accompanied by population-selection, validation and uncertainty audits. Movement measurement and football prediction require separate evidence.
+
+## References
+
+[1] Dos'Santos, Thomas, Jones and Comfort (2019). [Assessing Asymmetries in Change of Direction Speed Performance: Application of Change of Direction Deficit](https://pubmed.ncbi.nlm.nih.gov/29373434/). *J Strength Cond Res*, 33(11), 2953–2961.
+
+[2] Yao, Müller and Wang (2005). [Functional Data Analysis for Sparse Longitudinal Data](https://doi.org/10.1198/016214504000001745). *J Am Stat Assoc*, 100(470), 577–590.
+
+[3] Cawley and Talbot (2010). [On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation](https://www.jmlr.org/papers/v11/cawley10a.html). *J Mach Learn Res*, 11, 2079–2107.
+
+[4] Hanck and Arnold (2023; online 2021). [Hierarchical Bayes Modelling of Penalty Conversion Rates of Bundesliga Players](https://doi.org/10.1007/s10182-021-00420-w). *AStA Adv Stat Anal*, 107, 177–204.
+
+[5] Barber, Candès, Ramdas and Tibshirani (2021). [Predictive Inference with the Jackknife+](https://doi.org/10.1214/20-AOS1965). *Ann Stat*, 49(1), 486–507.
+
+**Data and authorship.** National Football League, [NFL Big Data Bowl 2027](https://www.kaggle.com/competitions/nfl-big-data-bowl-2027), Kaggle; CC BY-NC 4.0 and competition rules. Original code: MIT. AI assistance supported research, implementation and independent review.

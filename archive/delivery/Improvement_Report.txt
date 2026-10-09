@@ -1,0 +1,48 @@
+TECHNICAL-PAPER REVISION - R10/R11
+
+The rewrite closes the presentation gap identified from five inspected Kaggle
+notebooks. The main paper is compact and formal; source modules are readable in
+an executable appendix rather than embedded as giant escaped strings. References,
+notation, selection rules, uncertainty scopes and limitations are explicit.
+
+Verification
+- Exact portable input completed 45/45 code cells in 163.5047 seconds with official data.
+- Original eight scientific sources are byte-exact and in their original order.
+- Six functional modules and 29 fixtures are exact. Complete transport AST is unchanged
+  except three precisely documented literal-to-verified-JSON assignment values.
+-394 scientific quantities match with complete schemas/list lengths;136 actual output
+  JSON values and two bootstrap endpoints match generated aggregate artifacts.
+- Four newly generated PNGs byte-match reviewed figures; four attachment references
+  resolve. Both source ZIPs have valid CRCs and expected portable configuration.
+- Seven PDF pages independently reviewed:two numbered equations,two tables,four
+  figures; no clipping, overlap, missing glyphs or truncated captions observed.
+- Post-process output staging needed bounded cleanup of 10 owned files after tool
+  synchronization restored temporary files. Subsequent independent reads confirm
+  no prohibited participant rows, caches or CSVs. Official inputs were untouched.
+
+Round 10:all five reviewed; manuscript 87 wins. Notebook 75 was capped pending execution.
+Round 11:all five reviewed; notebook 89 wins;manuscript 88;visuals 87;reproducibility 87;
+methodology 85. Combined local 89/100. These are internal artifact-quality scores.
+Neither round creates a new untouched evaluation or an official competition score.
+
+Peer assessment
+The vote leader is chiefly explanatory/EDA. The closest offensive-line example has
+a different exposure threshold and multi-season target; receiver transfer studies
+have different endpoints. A strong measurement audit checks repeatability and
+text/output agreement. These provide presentation and audit lessons, without a
+numerical head-to-head ranking or evidence of our predictive superiority.
+Our eight original frozen cells and unfavorable 2025 finding remain explicit.
+
+Scientific result
+Adding mirror descriptors worsens 2025 Brier:0.0845866179 versus 0.0836844018 conventional
+and 0.0835134856 constant. Derived existing-output rate MAE reinforces this finding:
+3.60 pressures/100 mirror;2.35 conventional;2.14 constant. Count-aware and functional
+extensions remain exploratory; no dependable new football forecasting gain.
+
+External state
+New Kaggle import/run/render/publication and prize-entry update are pending.
+The browser failed with a retained credential-state restriction; reset/new-tab
+recovery did not restore access. No bot-detection claim and no new-publication
+success claim are made. Publishedv 4 proof is retained only as historical evidence.
+Before the failure, the prior research writeup body was observed as Submitted.
+See README.txt for concrete update steps and Current_Status.txt for continuation.

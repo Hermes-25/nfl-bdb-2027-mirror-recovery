@@ -1,0 +1,53 @@
+NFL BIG DATA BOWL 2027 - CURRENT STATUS, OCTOBER 9, 2026
+
+Current local revision: complete and independently approved for local delivery.
+New Kaggle publication: NOT completed. Browser credential-state controls prevented
+safe continuation even after a runtime reset and same-browser new-tab recovery.
+No new Kaggle execution, attachment/math rendering or prize-entry update is claimed.
+
+Before the browser error, the existing competition entry showed Submitted with the
+prior research revision (1458 displayed words, original four figures and two tables).
+The public notebook version 4 previously ran successfully in 344.6 seconds. Those facts
+are historical and are not proof of the new revision.
+
+The new technical paper has an abstract, numbered methods/equations, results,
+limitations and five primary references. Its 1910 wordlike tokens include captions
+and references; actual new Kaggle displayed word count remains unverified.
+Four journal-style figures and two tables; seven-page PDF independently inspected.
+
+Two complete five-direction editorial rounds plus independent judge completed:
+R10 winner manuscript 87; R11 winner notebook 89. All five outputs were reviewed each
+round. Combined local artifact 89/100. Scores are internal quality assessments, not
+Kaggle scores, ranks, prediction accuracy or winning probabilities.
+Prior history: eight complete five-direction research rounds/40 outputs plus the
+single original frozen evaluation; these two editorial rounds add 10 outputs.
+
+Exact final portable notebook:83 cells/45 code. All 45 passed fresh official-input
+execution in 163.5 seconds. Independent checks confirm 394 scientific quantities,
+136 captured-output quantities, source and input identities, all 4 figure hashes,
+4 Markdown attachments and both source archives. The original 8 cells are byte-exact.
+Scientific results and outcome scopes remain unchanged.
+
+Original 2025 test:19 rookies/7801 observations/668 pressures.
+Brier:constant 0.0835134856;conventional 0.0836844018;mirror 0.0845866179.
+Mirror worsened. Exploratory functional/count-model results do not establish an
+advantage. Test-retest reliability and future-NFL interval coverage remain unproven.
+
+Reviewed the user's Avik example and four vote-leading/relevant Kaggle notebooks.
+Adopted paper structure, explicit notation, readable code, figure captions and
+measurement/claim audits. Different populations and targets prevent head-to-head
+scientific ranking; votes measure popularity. No competitor code was executed.
+
+Ready files:portable notebook, executed notebook, technical-paper PDF, Markdown
+writeup, figures, readable-source ZIP and small Kaggle update bundle.
+Full research archive preserves prior scientific rounds and addsR10/R11/audits.
+Raw competition inputs and generated row files are excluded.
+
+Remaining external work:restore browser access; import into existing notebook,
+Save/RunAll and verify success/public display; upload four new PNGs and replace
+existing writeup body; preview math/tables/counts/links. Standard nbformat PNG
+attachments are local-integrity verified, with Kaggle support still unchecked.
+User must perform the final prize-entry Update Submission under browser policy.
+
+Existing notebook:https://www.kaggle.com/code/abhishekd2512/relative-mirror-recovery-and-rookie-protection
+Existing entry:https://www.kaggle.com/competitions/nfl-big-data-bowl-2027/writeups/relative-mirror-recovery-movement-costs-and-rooki
